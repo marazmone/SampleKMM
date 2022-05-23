@@ -11,11 +11,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.marazmone.samplekmm.android.R
 import com.marazmone.samplekmm.android.di.factory.ViewModelFactory
 import com.marazmone.samplekmm.android.presentation.adapter.LaunchesRvAdapter
+import com.marazmone.samplekmm.android.presentation.base.action.ProgressDelegate
+import com.marazmone.samplekmm.android.presentation.base.action.doOnResult
 import dagger.android.DaggerActivity
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(R.layout.activity_main) {
+class MainActivity : DaggerAppCompatActivity(R.layout.activity_main), ProgressDelegate {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -44,25 +46,29 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main) {
         observeData()
     }
 
+    override fun hide() {
+        swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun show() {
+        swipeRefreshLayout.isRefreshing = true
+    }
+
     private fun observeData() {
         viewModel.launchesLiveData.observe(this) { action ->
-            when (action) {
-                is MainViewModel.LaunchesAction.Success -> {
-                    swipeRefreshLayout.isRefreshing = false
-                    launchesRvAdapter.launches = action.result
+            action.doOnResult(
+                progressDelegate = this,
+                onSuccess = { result ->
+                    launchesRvAdapter.launches = result
                     launchesRvAdapter.notifyDataSetChanged()
-                }
-                is MainViewModel.LaunchesAction.Error -> {
+                },
+                onError = { error, _ ->
                     Toast
-                        .makeText(this, action.exception.localizedMessage, Toast.LENGTH_LONG)
+                        .makeText(this, error, Toast.LENGTH_LONG)
                         .show()
-                    swipeRefreshLayout.isRefreshing = false
-                    Log.e("wtf", action.exception.localizedMessage, action.exception)
+                    Log.e("wtf", error)
                 }
-                is MainViewModel.LaunchesAction.Loading -> {
-                    swipeRefreshLayout.isRefreshing = true
-                }
-            }
+            )
         }
     }
 }
