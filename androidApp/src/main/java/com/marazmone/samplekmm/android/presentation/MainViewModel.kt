@@ -4,6 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.marazmone.samplekmm.android.presentation.base.action.ActionResource
+import com.marazmone.samplekmm.android.presentation.base.action.ActionState
+import com.marazmone.samplekmm.android.presentation.base.setError
+import com.marazmone.samplekmm.android.presentation.base.setLoading
+import com.marazmone.samplekmm.android.presentation.base.setSuccess
 import com.marazmone.samplekmm.data.model.RocketLaunchEntitys
 import com.marazmone.samplekmm.domain.usecase.LaunchesUseCase
 import kotlinx.coroutines.launch
@@ -13,8 +18,8 @@ class MainViewModel @Inject constructor(
     private val launchesUseCase: LaunchesUseCase
 ) : ViewModel() {
 
-    private val _launchesLiveData = MutableLiveData<LaunchesAction>()
-    val launchesLiveData: LiveData<LaunchesAction> get() = _launchesLiveData
+    private val _launchesLiveData = MutableLiveData<ActionResource<List<RocketLaunchEntitys>>>()
+    val launchesLiveData: LiveData<ActionResource<List<RocketLaunchEntitys>>> get() = _launchesLiveData
 
     init {
         getLaunches()
@@ -22,23 +27,14 @@ class MainViewModel @Inject constructor(
 
     fun getLaunches() {
         viewModelScope.launch {
-            _launchesLiveData.value = LaunchesAction.Loading
+            _launchesLiveData.setLoading()
             runCatching {
                 launchesUseCase.execute()
             }.onSuccess { result ->
-                _launchesLiveData.value = LaunchesAction.Success(result)
+                _launchesLiveData.setSuccess(result)
             }.onFailure { exception: Throwable ->
-                _launchesLiveData.value = LaunchesAction.Error(exception)
+                _launchesLiveData.setError(exception.localizedMessage)
             }
         }
-    }
-
-    sealed class LaunchesAction {
-
-        data class Success(val result: List<RocketLaunchEntitys>) : LaunchesAction()
-
-        data class Error(val exception: Throwable) : LaunchesAction()
-
-        object Loading : LaunchesAction()
     }
 }
