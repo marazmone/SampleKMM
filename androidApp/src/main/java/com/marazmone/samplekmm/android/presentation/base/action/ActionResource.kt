@@ -11,6 +11,10 @@ data class ActionResource<out T>(
             return ActionResource(state = ActionState.SUCCESS, data, error = null)
         }
 
+        fun <T> empty(): ActionResource<T> {
+            return ActionResource(state = ActionState.EMPTY)
+        }
+
         fun <T> error(
             data: T? = null,
             errorMessage: String = "ERROR",

@@ -11,6 +11,11 @@ import com.marazmone.samplekmm.android.presentation.base.setLoading
 import com.marazmone.samplekmm.android.presentation.base.setSuccess
 import com.marazmone.samplekmm.data.model.RocketLaunchEntitys
 import com.marazmone.samplekmm.domain.usecase.LaunchesUseCase
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,8 +23,8 @@ class MainViewModel @Inject constructor(
     private val launchesUseCase: LaunchesUseCase
 ) : ViewModel() {
 
-    private val _launchesLiveData = MutableLiveData<ActionResource<List<RocketLaunchEntitys>>>()
-    val launchesLiveData: LiveData<ActionResource<List<RocketLaunchEntitys>>> get() = _launchesLiveData
+    private val _launchesLiveData = MutableStateFlow<ActionResource<List<RocketLaunchEntitys>>>(ActionResource.empty())
+    val launchesLiveData: SharedFlow<ActionResource<List<RocketLaunchEntitys>>> = _launchesLiveData.asStateFlow()
 
     init {
         getLaunches()

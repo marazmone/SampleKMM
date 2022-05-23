@@ -2,9 +2,11 @@ package com.marazmone.samplekmm.android.presentation
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -13,8 +15,8 @@ import com.marazmone.samplekmm.android.di.factory.ViewModelFactory
 import com.marazmone.samplekmm.android.presentation.adapter.LaunchesRvAdapter
 import com.marazmone.samplekmm.android.presentation.base.action.ProgressDelegate
 import com.marazmone.samplekmm.android.presentation.base.action.doOnResult
-import dagger.android.DaggerActivity
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity(R.layout.activity_main), ProgressDelegate {
@@ -55,20 +57,24 @@ class MainActivity : DaggerAppCompatActivity(R.layout.activity_main), ProgressDe
     }
 
     private fun observeData() {
-        viewModel.launchesLiveData.observe(this) { action ->
-            action.doOnResult(
-                progressDelegate = this,
-                onSuccess = { result ->
-                    launchesRvAdapter.launches = result
-                    launchesRvAdapter.notifyDataSetChanged()
-                },
-                onError = { error, _ ->
-                    Toast
-                        .makeText(this, error, Toast.LENGTH_LONG)
-                        .show()
-                    Log.e("wtf", error)
+        lifecycleScope.launch {
+            viewModel.launchesLiveData
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { action ->
+                    action.doOnResult(
+                        progressDelegate = this@MainActivity,
+                        onSuccess = { result ->
+                            launchesRvAdapter.launches = result
+                            launchesRvAdapter.notifyDataSetChanged()
+                        },
+                        onError = { error, _ ->
+                            Toast
+                                .makeText(this@MainActivity, error, Toast.LENGTH_LONG)
+                                .show()
+                            Log.e("wtf", error)
+                        },
+                    )
                 }
-            )
         }
     }
 }
