@@ -1,0 +1,6 @@
+framework module SampleKMM {
+    umbrella header "SampleKMM.h"
+
+    export *
+    module * { export * }
+}
