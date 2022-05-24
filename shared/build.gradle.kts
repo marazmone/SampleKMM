@@ -47,6 +47,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
+                api("dev.icerock.moko:mvvm-core:0.13.0")
             }
         }
         val commonTest by getting {
