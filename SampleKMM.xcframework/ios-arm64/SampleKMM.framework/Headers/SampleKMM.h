@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class SKMMRocketLaunchEntitys, SKMMLaunchesModule, SKMMLaunchesUseCase, SKMMKotlinUnit, SKMMLinksEntityCompanion, SKMMRocketEntityCompanion, SKMMRocketLaunchEntitysCompanion, SKMMLinksEntity, SKMMRocketEntity, SKMMKotlinThrowable, SKMMKotlinArray<T>, SKMMKotlinException, SKMMKotlinRuntimeException, SKMMKotlinIllegalStateException, SKMMKotlinx_serialization_coreSerializersModule, SKMMKotlinx_serialization_coreSerialKind, SKMMKotlinNothing;
+@class SKMMEventsDispatcher<ListenerType>, SKMMRocketLaunchEntitys, SKMMLaunchesModule, SKMMLaunchesUseCase, SKMMViewModel, SKMMKotlinUnit, SKMMLinksEntityCompanion, SKMMRocketEntityCompanion, SKMMRocketLaunchEntitysCompanion, SKMMLinksEntity, SKMMRocketEntity, SKMMKotlinThrowable, SKMMKotlinArray<T>, SKMMKotlinException, SKMMKotlinRuntimeException, SKMMKotlinIllegalStateException, SKMMKotlinx_serialization_coreSerializersModule, SKMMKotlinx_serialization_coreSerialKind, SKMMKotlinNothing;
 
-@protocol SKMMLaunchesRepository, SKMMKotlinx_serialization_coreKSerializer, SKMMKotlinx_serialization_coreEncoder, SKMMKotlinx_serialization_coreSerialDescriptor, SKMMKotlinx_serialization_coreSerializationStrategy, SKMMKotlinx_serialization_coreDecoder, SKMMKotlinx_serialization_coreDeserializationStrategy, SKMMKotlinIterator, SKMMKotlinx_serialization_coreCompositeEncoder, SKMMKotlinAnnotation, SKMMKotlinx_serialization_coreCompositeDecoder, SKMMKotlinx_serialization_coreSerializersModuleCollector, SKMMKotlinKClass, SKMMKotlinKDeclarationContainer, SKMMKotlinKAnnotatedElement, SKMMKotlinKClassifier;
+@protocol SKMMKotlinx_coroutines_coreCoroutineScope, SKMMLaunchesRepository, SKMMMainViewModelEventListener, SKMMKotlinx_serialization_coreKSerializer, SKMMKotlinCoroutineContext, SKMMKotlinx_serialization_coreEncoder, SKMMKotlinx_serialization_coreSerialDescriptor, SKMMKotlinx_serialization_coreSerializationStrategy, SKMMKotlinx_serialization_coreDecoder, SKMMKotlinx_serialization_coreDeserializationStrategy, SKMMKotlinCoroutineContextElement, SKMMKotlinCoroutineContextKey, SKMMKotlinIterator, SKMMKotlinx_serialization_coreCompositeEncoder, SKMMKotlinAnnotation, SKMMKotlinx_serialization_coreCompositeDecoder, SKMMKotlinx_serialization_coreSerializersModuleCollector, SKMMKotlinKClass, SKMMKotlinKDeclarationContainer, SKMMKotlinKAnnotatedElement, SKMMKotlinKClassifier;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -145,6 +145,30 @@ __attribute__((swift_name("KotlinBoolean")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("EventsDispatcher")))
+@interface SKMMEventsDispatcher<ListenerType> : SKMMBase
+- (instancetype)initWithListener:(ListenerType)listener __attribute__((swift_name("init(listener:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (void)dispatchEventBlock:(void (^)(ListenerType))block __attribute__((swift_name("dispatchEvent(block:)")));
+@property ListenerType _Nullable listener __attribute__((swift_name("listener")));
+@end;
+
+__attribute__((swift_name("EventsDispatcherOwner")))
+@protocol SKMMEventsDispatcherOwner
+@required
+@property (readonly) SKMMEventsDispatcher<id> *eventsDispatcher __attribute__((swift_name("eventsDispatcher")));
+@end;
+
+__attribute__((swift_name("ViewModel")))
+@interface SKMMViewModel : SKMMBase
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (void)onCleared __attribute__((swift_name("onCleared()")));
+@property (readonly) id<SKMMKotlinx_coroutines_coreCoroutineScope> viewModelScope __attribute__((swift_name("viewModelScope")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Greeting")))
 @interface SKMMGreeting : SKMMBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
@@ -191,6 +215,25 @@ __attribute__((swift_name("LaunchesModule")))
 + (instancetype)launchesModule __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) SKMMLaunchesModule *shared __attribute__((swift_name("shared")));
 @property (readonly) SKMMLaunchesUseCase *launchesUseCase __attribute__((swift_name("launchesUseCase")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("MainViewModel")))
+@interface SKMMMainViewModel : SKMMViewModel
+- (instancetype)initWithEventsDispatcher:(SKMMEventsDispatcher<id<SKMMMainViewModelEventListener>> *)eventsDispatcher __attribute__((swift_name("init(eventsDispatcher:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
+- (void)getLaunches __attribute__((swift_name("getLaunches()")));
+@property (readonly) SKMMEventsDispatcher<id<SKMMMainViewModelEventListener>> *eventsDispatcher __attribute__((swift_name("eventsDispatcher")));
+@end;
+
+__attribute__((swift_name("MainViewModelEventListener")))
+@protocol SKMMMainViewModelEventListener
+@required
+- (void)hideLoading __attribute__((swift_name("hideLoading()")));
+- (void)onErrorError:(NSString *)error __attribute__((swift_name("onError(error:)")));
+- (void)onSuccessResult:(NSArray<SKMMRocketLaunchEntitys *> *)result __attribute__((swift_name("onSuccess(result:)")));
+- (void)showLoading __attribute__((swift_name("showLoading()")));
 @end;
 
 __attribute__((swift_name("LaunchesCacheDataSource")))
@@ -294,6 +337,12 @@ __attribute__((swift_name("RocketLaunchEntitys.Companion")))
 - (id<SKMMKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
 @end;
 
+__attribute__((swift_name("Kotlinx_coroutines_coreCoroutineScope")))
+@protocol SKMMKotlinx_coroutines_coreCoroutineScope
+@required
+@property (readonly) id<SKMMKotlinCoroutineContext> coroutineContext __attribute__((swift_name("coroutineContext")));
+@end;
+
 __attribute__((swift_name("KotlinThrowable")))
 @interface SKMMKotlinThrowable : SKMMBase
 - (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
@@ -374,6 +423,15 @@ __attribute__((swift_name("Kotlinx_serialization_coreKSerializer")))
 @required
 @end;
 
+__attribute__((swift_name("KotlinCoroutineContext")))
+@protocol SKMMKotlinCoroutineContext
+@required
+- (id _Nullable)foldInitial:(id _Nullable)initial operation:(id _Nullable (^)(id _Nullable, id<SKMMKotlinCoroutineContextElement>))operation __attribute__((swift_name("fold(initial:operation:)")));
+- (id<SKMMKotlinCoroutineContextElement> _Nullable)getKey:(id<SKMMKotlinCoroutineContextKey>)key __attribute__((swift_name("get(key:)")));
+- (id<SKMMKotlinCoroutineContext>)minusKeyKey:(id<SKMMKotlinCoroutineContextKey>)key __attribute__((swift_name("minusKey(key:)")));
+- (id<SKMMKotlinCoroutineContext>)plusContext:(id<SKMMKotlinCoroutineContext>)context __attribute__((swift_name("plus(context:)")));
+@end;
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("KotlinArray")))
 @interface SKMMKotlinArray<T> : SKMMBase
@@ -445,6 +503,17 @@ __attribute__((swift_name("Kotlinx_serialization_coreDecoder")))
 - (int16_t)decodeShort __attribute__((swift_name("decodeShort()")));
 - (NSString *)decodeString __attribute__((swift_name("decodeString()")));
 @property (readonly) SKMMKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
+@end;
+
+__attribute__((swift_name("KotlinCoroutineContextElement")))
+@protocol SKMMKotlinCoroutineContextElement <SKMMKotlinCoroutineContext>
+@required
+@property (readonly) id<SKMMKotlinCoroutineContextKey> key __attribute__((swift_name("key")));
+@end;
+
+__attribute__((swift_name("KotlinCoroutineContextKey")))
+@protocol SKMMKotlinCoroutineContextKey
+@required
 @end;
 
 __attribute__((swift_name("KotlinIterator")))

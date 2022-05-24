@@ -83,6 +83,13 @@ kotlin {
             iosSimulatorArm64Test.dependsOn(this)
         }
     }
+
+    // export correct artifact to use all classes of library directly from Swift
+    targets.withType(org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget::class.java).all {
+        binaries.withType(org.jetbrains.kotlin.gradle.plugin.mpp.Framework::class.java).all {
+            export("dev.icerock.moko:mvvm-core:0.13.0")
+        }
+    }
 }
 
 android {
