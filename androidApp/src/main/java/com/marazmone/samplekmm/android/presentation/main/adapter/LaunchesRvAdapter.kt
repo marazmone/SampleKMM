@@ -1,4 +1,4 @@
-package com.marazmone.samplekmm.android.presentation.adapter
+package com.marazmone.samplekmm.android.presentation.main.adapter
 
 import android.view.LayoutInflater
 import android.view.View
