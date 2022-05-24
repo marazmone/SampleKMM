@@ -1,0 +1,16 @@
+PODS:
+  - SampleKMM (1.0)
+
+DEPENDENCIES:
+  - SampleKMM (from `../shared`)
+
+EXTERNAL SOURCES:
+  SampleKMM:
+    :path: "../shared"
+
+SPEC CHECKSUMS:
+  SampleKMM: 9ec35ff6206fc775c62eab61e10c416e068e5889
+
+PODFILE CHECKSUM: 6d1514910b7ff83cba5425aa3c848d68240a390a
+
+COCOAPODS: 1.11.3
