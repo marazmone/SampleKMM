@@ -14,6 +14,8 @@
 		CE5D4D02283CF6D200DA1636 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE5D4D00283CF6D200DA1636 /* Main.storyboard */; };
 		CE5D4D04283CF6D500DA1636 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5D4D03283CF6D500DA1636 /* Assets.xcassets */; };
 		CE5D4D07283CF6D500DA1636 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE5D4D05283CF6D500DA1636 /* LaunchScreen.storyboard */; };
+		CEF5DF6D283D2E5F007AC636 /* RocketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF5DF6B283D2E5F007AC636 /* RocketTableViewCell.swift */; };
+		CEF5DF6E283D2E5F007AC636 /* RocketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF5DF6C283D2E5F007AC636 /* RocketTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		CE5D4D03283CF6D500DA1636 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE5D4D06283CF6D500DA1636 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE5D4D08283CF6D500DA1636 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEF5DF6B283D2E5F007AC636 /* RocketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketTableViewCell.swift; sourceTree = "<group>"; };
+		CEF5DF6C283D2E5F007AC636 /* RocketTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RocketTableViewCell.xib; sourceTree = "<group>"; };
 		F58DA75A5586A97A62067CEF /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,7 +52,6 @@
 				2BE387055C5CF63A1B68196B /* Pods-iosApp.debug.xcconfig */,
 				F58DA75A5586A97A62067CEF /* Pods-iosApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -88,6 +91,8 @@
 				CE5D4D03283CF6D500DA1636 /* Assets.xcassets */,
 				CE5D4D05283CF6D500DA1636 /* LaunchScreen.storyboard */,
 				CE5D4D08283CF6D500DA1636 /* Info.plist */,
+				CEF5DF6B283D2E5F007AC636 /* RocketTableViewCell.swift */,
+				CEF5DF6C283D2E5F007AC636 /* RocketTableViewCell.xib */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -154,6 +159,7 @@
 				CE5D4D07283CF6D500DA1636 /* LaunchScreen.storyboard in Resources */,
 				CE5D4D04283CF6D500DA1636 /* Assets.xcassets in Resources */,
 				CE5D4D02283CF6D200DA1636 /* Main.storyboard in Resources */,
+				CEF5DF6E283D2E5F007AC636 /* RocketTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +198,7 @@
 				CE5D4CFF283CF6D200DA1636 /* ViewController.swift in Sources */,
 				CE5D4CFB283CF6D200DA1636 /* AppDelegate.swift in Sources */,
 				CE5D4CFD283CF6D200DA1636 /* SceneDelegate.swift in Sources */,
+				CEF5DF6D283D2E5F007AC636 /* RocketTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
