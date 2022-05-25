@@ -1,6 +1,7 @@
 package com.marazmone.samplekmm.data.datasource
 
 import com.marazmone.samplekmm.data.model.RocketLaunchEntitys
+import com.marazmone.samplekmm.utils.ResultWrapper
 
 interface LaunchesCacheDataSource {
 
@@ -13,5 +14,5 @@ interface LaunchesCacheDataSource {
 
 interface LaunchesRemoteDataSource {
 
-    suspend fun getAll(): List<RocketLaunchEntitys>
+    suspend fun getAll(): ResultWrapper<List<RocketLaunchEntitys>>
 }
