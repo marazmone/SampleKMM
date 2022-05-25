@@ -20,19 +20,20 @@ class MainViewModel(
     fun getLaunches() {
         viewModelScope.launch {
             eventsDispatcher.dispatchEvent { showLoading() }
-            runCatching {
-                useCase.execute()
-            }.onSuccess { result ->
-                eventsDispatcher.dispatchEvent {
-                    onSuccess(result)
-                    hideLoading()
+            useCase.execute().doOnResult(
+                onSuccess = { rocketLaunches ->
+                    eventsDispatcher.dispatchEvent {
+                        onSuccess(rocketLaunches)
+                        hideLoading()
+                    }
+                },
+                onError = { error ->
+                    eventsDispatcher.dispatchEvent {
+                        onError(error.msg)
+                        hideLoading()
+                    }
                 }
-            }.onFailure { exception: Throwable ->
-                eventsDispatcher.dispatchEvent {
-                    onError(exception.message.orEmpty())
-                    hideLoading()
-                }
-            }
+            )
         }
     }
 
