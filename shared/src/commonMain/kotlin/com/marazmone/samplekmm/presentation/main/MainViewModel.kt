@@ -1,17 +1,18 @@
 package com.marazmone.samplekmm.presentation.main
 
 import com.marazmone.samplekmm.data.model.RocketLaunchEntitys
-import com.marazmone.samplekmm.di.LaunchesModule
 import com.marazmone.samplekmm.domain.usecase.LaunchesUseCase
 import dev.icerock.moko.mvvm.dispatcher.EventsDispatcher
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class MainViewModel(
     val eventsDispatcher: EventsDispatcher<EventListener>
-) : ViewModel() {
+) : ViewModel(), KoinComponent {
 
-    private val useCase: LaunchesUseCase = LaunchesModule.launchesUseCase
+    private val useCase: LaunchesUseCase by inject()
 
     init {
         getLaunches()

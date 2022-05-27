@@ -17,6 +17,7 @@ kotlin {
     val coroutinesVersion = "1.6.1-native-mt"
     val serializationVersion = "1.3.3"
     val ktorVersion = "2.0.1"
+    val koinVersion = "3.2.0"
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -47,6 +48,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
+                implementation("io.insert-koin:koin-core:$koinVersion")
                 api("dev.icerock.moko:mvvm-core:0.13.0")
             }
         }
@@ -58,6 +60,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
+                api("io.insert-koin:koin-android:$koinVersion")
             }
         }
         val androidTest by getting

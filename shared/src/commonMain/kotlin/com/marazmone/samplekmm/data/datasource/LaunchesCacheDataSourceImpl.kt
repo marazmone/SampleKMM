@@ -2,9 +2,7 @@ package com.marazmone.samplekmm.data.datasource
 
 import com.marazmone.samplekmm.data.model.RocketLaunchEntitys
 
-internal class LaunchesCacheDataSourceImpl(
-    private val database: Any
-) : LaunchesCacheDataSource {
+internal class LaunchesCacheDataSourceImpl() : LaunchesCacheDataSource {
 
     override suspend fun getAll(): List<RocketLaunchEntitys> {
         throw Throwable("need implement database")
