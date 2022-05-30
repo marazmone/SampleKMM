@@ -4,9 +4,9 @@ import com.marazmone.samplekmm.domain.model.RocketLaunchesModel
 import com.marazmone.samplekmm.domain.repository.LaunchesRepository
 import com.marazmone.samplekmm.utils.ResultWrapper
 
-class LaunchesUseCase(
+class LaunchesUpdateUseCase(
     private val repository: LaunchesRepository
 ) {
 
-    suspend fun execute(): ResultWrapper<List<RocketLaunchesModel>> = repository.getAll()
+    suspend fun execute(): ResultWrapper<Unit> = repository.updateAll()
 }

@@ -1,8 +1,8 @@
 package com.marazmone.samplekmm.presentation.main
 
-import com.marazmone.samplekmm.data.model.response.RocketLaunchResponse
 import com.marazmone.samplekmm.domain.model.RocketLaunchesModel
-import com.marazmone.samplekmm.domain.usecase.LaunchesUseCase
+import com.marazmone.samplekmm.domain.usecase.LaunchesObserveUseCase
+import com.marazmone.samplekmm.domain.usecase.LaunchesUpdateUseCase
 import dev.icerock.moko.mvvm.dispatcher.EventsDispatcher
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.launch
@@ -13,22 +13,19 @@ class MainViewModel(
     val eventsDispatcher: EventsDispatcher<EventListener>
 ) : ViewModel(), KoinComponent {
 
-    private val useCase: LaunchesUseCase by inject()
+    private val useCase: LaunchesUpdateUseCase by inject()
+
+    private val launchesObserveUseCase: LaunchesObserveUseCase by inject()
 
     init {
         getLaunches()
+        observeLaunches()
     }
 
     fun getLaunches() {
         viewModelScope.launch {
             eventsDispatcher.dispatchEvent { showLoading() }
             useCase.execute().doOnResult(
-                onSuccess = { rocketLaunches ->
-                    eventsDispatcher.dispatchEvent {
-                        onSuccess(rocketLaunches)
-                        hideLoading()
-                    }
-                },
                 onError = { error ->
                     eventsDispatcher.dispatchEvent {
                         onError(error.msg)
@@ -36,6 +33,17 @@ class MainViewModel(
                     }
                 }
             )
+        }
+    }
+
+    private fun observeLaunches() {
+        viewModelScope.launch {
+            launchesObserveUseCase.execute().collect { result ->
+                eventsDispatcher.dispatchEvent {
+                    onSuccess(result)
+                    hideLoading()
+                }
+            }
         }
     }
 
