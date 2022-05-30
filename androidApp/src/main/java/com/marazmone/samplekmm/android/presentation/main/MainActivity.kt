@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.marazmone.samplekmm.android.R
 import com.marazmone.samplekmm.android.presentation.main.adapter.LaunchesRvAdapter
-import com.marazmone.samplekmm.data.model.response.RocketLaunchResponse
 import com.marazmone.samplekmm.domain.model.RocketLaunchesModel
 import com.marazmone.samplekmm.presentation.base.BaseActivity
 import com.marazmone.samplekmm.presentation.main.MainViewModel
@@ -44,7 +43,6 @@ class MainActivity : BaseActivity<MainViewModel>(R.layout.activity_main),
             viewModel.getLaunches()
         }
 
-        viewModel.getLaunches()
         viewModel.eventsDispatcher.bind(this, this)
     }
 
