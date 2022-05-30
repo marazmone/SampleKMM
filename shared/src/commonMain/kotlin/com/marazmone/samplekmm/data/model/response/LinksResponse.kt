@@ -1,13 +1,12 @@
-package com.marazmone.samplekmm.data.model
+package com.marazmone.samplekmm.data.model.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class LinksEntity {
+data class LinksResponse(
     @SerialName("mission_patch")
-    var missionPatchUrl: String? = ""
-
+    val missionPatchUrl: String? = null,
     @SerialName("article_link")
-    var articleUrl: String? = ""
-}
+    val articleUrl: String? = null
+)
