@@ -1,6 +1,7 @@
 package com.marazmone.samplekmm.presentation.main
 
-import com.marazmone.samplekmm.data.model.RocketLaunchEntitys
+import com.marazmone.samplekmm.data.model.response.RocketLaunchResponse
+import com.marazmone.samplekmm.domain.model.RocketLaunchesModel
 import com.marazmone.samplekmm.domain.usecase.LaunchesUseCase
 import dev.icerock.moko.mvvm.dispatcher.EventsDispatcher
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -44,7 +45,7 @@ class MainViewModel(
 
         fun hideLoading()
 
-        fun onSuccess(result: List<RocketLaunchEntitys>)
+        fun onSuccess(result: List<RocketLaunchesModel>)
 
         fun onError(error: String)
     }

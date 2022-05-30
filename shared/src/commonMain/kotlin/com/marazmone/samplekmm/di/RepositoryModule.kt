@@ -7,5 +7,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    singleOf(::LaunchesRepositoryImpl) { bind<LaunchesRepository>()}
+    singleOf(::LaunchesRepositoryImpl) {
+        bind<LaunchesRepository>()
+    }
 }

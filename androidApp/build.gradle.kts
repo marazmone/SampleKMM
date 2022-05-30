@@ -2,6 +2,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.android.application")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -24,7 +25,7 @@ dependencies {
     implementation(project(":shared"))
     implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     val lifecycle_version = "2.5.0-rc01"
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
@@ -41,13 +42,8 @@ dependencies {
     val activity_version = "1.4.0"
     implementation("androidx.activity:activity-ktx:$activity_version")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    val dagger_version = "2.41"
-    //dagger
-    implementation("com.google.dagger:dagger:$dagger_version")
-    implementation("com.google.dagger:dagger-android:$dagger_version")
-    implementation("com.google.dagger:dagger-android-support:$dagger_version")
-    kapt("com.google.dagger:dagger-compiler:$dagger_version")
-    kapt("com.google.dagger:dagger-android-processor:$dagger_version")
+    implementation("com.google.dagger:hilt-android:2.42")
+    kapt("com.google.dagger:hilt-compiler:2.42")
 }
 
 kapt {

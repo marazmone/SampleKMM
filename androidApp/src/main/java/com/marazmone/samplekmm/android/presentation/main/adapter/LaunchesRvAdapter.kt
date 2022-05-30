@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.marazmone.samplekmm.android.R
-import com.marazmone.samplekmm.data.model.RocketLaunchEntitys
+import com.marazmone.samplekmm.domain.model.RocketLaunchesModel
 
-class LaunchesRvAdapter(var launches: List<RocketLaunchEntitys>) :
+class LaunchesRvAdapter(var launches: List<RocketLaunchesModel>) :
     RecyclerView.Adapter<LaunchesRvAdapter.LaunchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchViewHolder {
@@ -30,15 +30,15 @@ class LaunchesRvAdapter(var launches: List<RocketLaunchEntitys>) :
         private val launchSuccessTextView = itemView.findViewById<TextView>(R.id.launchSuccess)
         private val missionDetailsTextView = itemView.findViewById<TextView>(R.id.details)
 
-        fun bindData(launch: RocketLaunchEntitys) {
+        fun bindData(launch: RocketLaunchesModel) {
             val ctx = itemView.context
             missionNameTextView.text =
-                ctx.getString(R.string.mission_name_field, launch.missionName)
+                ctx.getString(R.string.mission_name_field, launch.name)
             launchYearTextView.text =
-                ctx.getString(R.string.launch_year_field, launch.launchYear.toString())
+                ctx.getString(R.string.launch_year_field, launch.year.toString())
             missionDetailsTextView.text =
-                ctx.getString(R.string.details_field, launch.details ?: "")
-            val launchSuccess = launch.launchSuccess ?: false
+                ctx.getString(R.string.details_field, launch.details)
+            val launchSuccess = launch.status
             if (launchSuccess) {
                 launchSuccessTextView.text = ctx.getString(R.string.successful)
                 launchSuccessTextView.setTextColor(

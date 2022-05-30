@@ -1,16 +1,14 @@
-package com.marazmone.samplekmm.data.model
+package com.marazmone.samplekmm.data.model.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class RocketEntity {
+data class RocketResponse(
     @SerialName("rocket_id")
-    var id: String = ""
-
+    val id: String? = null,
     @SerialName("rocket_name")
-    var name: String = ""
-
+    val name: String? = null,
     @SerialName("rocket_type")
-    var type: String = ""
-}
+    val type: String? = null,
+)

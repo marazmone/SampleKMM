@@ -4,6 +4,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
+    id("io.realm.kotlin")
 }
 
 version = "1.0"
@@ -49,6 +50,7 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.insert-koin:koin-core:$koinVersion")
+                implementation("io.realm.kotlin:library-base:0.11.1")
                 api("dev.icerock.moko:mvvm-core:0.13.0")
             }
         }
