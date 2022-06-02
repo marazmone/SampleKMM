@@ -9,4 +9,6 @@ interface LaunchesRepository {
     suspend fun updateAll(): ResultWrapper<Unit>
 
     suspend fun observeAll(): Flow<List<RocketLaunchesModel>>
+
+    suspend fun deleteById(id: Int)
 }

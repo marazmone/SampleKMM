@@ -21,6 +21,7 @@ class RocketLaunchEntity : RealmObject {
     companion object : Mapper<RocketLaunchEntity, RocketLaunchesModel> {
         override fun map(source: RocketLaunchEntity): RocketLaunchesModel =
             RocketLaunchesModel(
+                id = source.id,
                 name = source.missionName,
                 year = source.launchYear,
                 status = source.launchSuccess,

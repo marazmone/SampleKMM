@@ -14,6 +14,8 @@ interface LaunchesCacheDataSource {
     suspend fun observeAll(): Flow<List<RocketLaunchEntity>>
 
     suspend fun clear()
+
+    suspend fun deleteById(id: Int)
 }
 
 interface LaunchesRemoteDataSource {

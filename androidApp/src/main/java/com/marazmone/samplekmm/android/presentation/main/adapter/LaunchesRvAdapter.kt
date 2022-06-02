@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.marazmone.samplekmm.android.R
 import com.marazmone.samplekmm.domain.model.RocketLaunchesModel
 
-class LaunchesRvAdapter(var launches: List<RocketLaunchesModel>) :
+class LaunchesRvAdapter(
+    var launches: List<RocketLaunchesModel>,
+    private val deleteById: (id: Int) -> Unit,
+) :
     RecyclerView.Adapter<LaunchesRvAdapter.LaunchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaunchViewHolder {
@@ -31,9 +34,12 @@ class LaunchesRvAdapter(var launches: List<RocketLaunchesModel>) :
         private val missionDetailsTextView = itemView.findViewById<TextView>(R.id.details)
 
         fun bindData(launch: RocketLaunchesModel) {
+            itemView.setOnClickListener {
+                deleteById.invoke(launch.id)
+            }
             val ctx = itemView.context
             missionNameTextView.text =
-                ctx.getString(R.string.mission_name_field, launch.name)
+                ctx.getString(R.string.mission_name_field, launch.name).plus("(${launch.id})")
             launchYearTextView.text =
                 ctx.getString(R.string.launch_year_field, launch.year.toString())
             missionDetailsTextView.text =

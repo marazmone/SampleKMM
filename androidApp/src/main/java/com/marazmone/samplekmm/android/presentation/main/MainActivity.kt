@@ -22,7 +22,9 @@ class MainActivity : BaseActivity<MainViewModel>(R.layout.activity_main),
 
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    private val launchesRvAdapter = LaunchesRvAdapter(listOf())
+    private val launchesRvAdapter = LaunchesRvAdapter(listOf()) { id ->
+        viewModel.deleteById(id)
+    }
 
     override val viewModelClass: Class<MainViewModel> = MainViewModel::class.java
 

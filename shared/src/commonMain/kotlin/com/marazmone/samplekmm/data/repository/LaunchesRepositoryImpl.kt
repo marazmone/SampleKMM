@@ -27,4 +27,8 @@ internal class LaunchesRepositoryImpl(
 
     override suspend fun observeAll(): Flow<List<RocketLaunchesModel>> =
         cache.observeAll().map { RocketLaunchEntity.list(it) }
+
+    override suspend fun deleteById(id: Int) {
+        cache.deleteById(id)
+    }
 }

@@ -1,6 +1,7 @@
 package com.marazmone.samplekmm.presentation.main
 
 import com.marazmone.samplekmm.domain.model.RocketLaunchesModel
+import com.marazmone.samplekmm.domain.usecase.LaunchesDeleteByIdUseCase
 import com.marazmone.samplekmm.domain.usecase.LaunchesObserveUseCase
 import com.marazmone.samplekmm.domain.usecase.LaunchesUpdateUseCase
 import dev.icerock.moko.mvvm.dispatcher.EventsDispatcher
@@ -16,6 +17,8 @@ class MainViewModel(
     private val useCase: LaunchesUpdateUseCase by inject()
 
     private val launchesObserveUseCase: LaunchesObserveUseCase by inject()
+
+    private val launchesDeleteByIdUseCase: LaunchesDeleteByIdUseCase by inject()
 
     init {
         getLaunches()
@@ -33,6 +36,12 @@ class MainViewModel(
                     }
                 }
             )
+        }
+    }
+
+    fun deleteById(id: Int) {
+        viewModelScope.launch {
+            launchesDeleteByIdUseCase.execute(id)
         }
     }
 

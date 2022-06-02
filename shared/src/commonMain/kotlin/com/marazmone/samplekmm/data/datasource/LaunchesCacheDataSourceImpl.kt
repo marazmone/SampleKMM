@@ -20,13 +20,14 @@ internal class LaunchesCacheDataSourceImpl(
 
     override suspend fun save(launches: List<RocketLaunchEntity>) {
         realm.write {
+            delete(query<RocketLaunchEntity>().find())
             launches.forEach { insertOrUpdate(it) }
         }
     }
 
     override suspend fun clear() {
         realm.write {
-            val allRocketLaunchResponse = realm.query<RocketLaunchEntity>().find()
+            val allRocketLaunchResponse = query<RocketLaunchEntity>().find()
             delete(allRocketLaunchResponse)
         }
     }
@@ -37,4 +38,11 @@ internal class LaunchesCacheDataSourceImpl(
                 is InitialResults, is UpdatedResults -> change.list
             }
         }
+
+    override suspend fun deleteById(id: Int) {
+        realm.write {
+            val launchEntity = query<RocketLaunchEntity>("id == $0", id).find()
+            delete(launchEntity)
+        }
+    }
 }
